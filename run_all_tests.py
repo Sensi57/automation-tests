@@ -1,3 +1,3 @@
 import pytest
 
-pytest.main(["tests/"])
+pytest.main(["-s", "-v", "tests"])
