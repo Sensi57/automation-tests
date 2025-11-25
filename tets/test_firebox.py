@@ -1,14 +1,19 @@
+import json
 from selenium import webdriver
 
-USERNAME = "sakyshevnursat_wnDUNr"
-ACCESS_KEY = "41XXaAgVJvZWbVX2Rvbf"
+with open("browserstack_config.json") as f:
+    config = json.load(f)
 
-options = webdriver.SafariOptions()
+
+USERNAME = config["user"]
+ACCESS_KEY = config["key"]
+
+options = webdriver.FirefoxOptions()
 
 bstack_options = {
-    "os": "OS X",
-    "osVersion": "Sonoma",
-    "sessionName": "Safari Test"
+    "os": "Windows",
+    "osVersion": "11",
+    "sessionName": "Firefox Test"
 }
 
 options.set_capability('bstack:options', bstack_options)
@@ -16,8 +21,9 @@ options.set_capability('browserVersion', 'latest')
 
 driver = webdriver.Remote(
     command_executor=f"https://{USERNAME}:{ACCESS_KEY}@hub.browserstack.com/wd/hub",
-    options=options
+    options=webdriver.ChromeOptions()
 )
+
 driver.get("https://google.com")
 print(driver.title)
 

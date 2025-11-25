@@ -5,8 +5,6 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 with open("browserstack_config.json") as f:
     config = json.load(f)
 
-USERNAME = "sakyshevnursat_wnDUNr"
-ACCESS_KEY = "41XXaAgVJvZWbVX2Rvbf"
 
 capabilities = {
     "browserName": "chrome",
@@ -17,6 +15,9 @@ capabilities = {
         "sessionName": "Chrome Test"
     }
 }
+
+USERNAME = config["user"]
+ACCESS_KEY = config["key"]
 
 driver = webdriver.Remote(
     command_executor=f"https://{USERNAME}:{ACCESS_KEY}@hub.browserstack.com/wd/hub",
