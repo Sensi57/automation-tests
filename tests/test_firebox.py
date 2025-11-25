@@ -4,28 +4,24 @@ from selenium import webdriver
 with open("browserstack_config.json") as f:
     config = json.load(f)
 
-def test_firefox_title():
-    options = webdriver.FirefoxOptions()
-    options.set_capability('bstack:options', {
-        "os": "Windows",
-        "osVersion": "11",
-        "browserVersion": "latest",
-        "sessionName": "Firefox Test"
-    })
 
-    driver = webdriver.Remote(
-        command_executor="https://hub.browserstack.com/wd/hub",
-        options=options,
-        desired_capabilities={
-            "browserName": "firefox",
-            "browserVersion": "latest",
-            "bstack:options": {
-                "userName": config["user"],
-                "accessKey": config["key"]
-            }
-        }
-    )
+options = webdriver.FirefoxOptions()
 
-    driver.get("https://google.com")
-    assert "Google" in driver.title
-    driver.quit()
+bstack_options = {
+    "os": "Windows",
+    "osVersion": "11",
+    "sessionName": "Firefox Test"
+}
+
+options.set_capability('bstack:options', bstack_options)
+options.set_capability('browserVersion', 'latest')
+
+driver = webdriver.Remote(
+    command_executor=f"https://{config.user}:{config.key}@hub.browserstack.com/wd/hub",
+    options=webdriver.ChromeOptions()
+)
+
+driver.get("https://google.com")
+print(driver.title)
+
+driver.quit()

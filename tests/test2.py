@@ -1,0 +1,31 @@
+from selenium import webdriver
+
+USERNAME = "aleksturnitin_G6Kx1d"
+ACCESS_KEY = "KT81txcpLzPmjFpQ1DMT"
+
+def run_test(options, name):
+    driver = webdriver.Remote(
+        command_executor=f"https://{USERNAME}:{ACCESS_KEY}@hub.browserstack.com/wd/hub",
+        options=options
+    )
+
+    try:
+        driver.get("https://youtube.com")
+
+        driver.execute_script(
+            'browserstack_executor: {"action": "setSessionStatus", '
+            '"arguments": {"status":"passed", "reason":"YouTube opened successfully"}}'
+        )
+
+        print(f"{name} - Test 2: PASSED")
+
+    except Exception as e:
+        driver.execute_script(
+            f'browserstack_executor: {{"action": "setSessionStatus", '
+            f'"arguments": {{"status":"failed", "reason":"{str(e)}"}}}}'
+        )
+
+        print(f"{name} - Test 2: FAILED")
+
+    finally:
+        driver.quit()

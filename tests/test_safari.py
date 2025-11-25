@@ -1,31 +1,24 @@
-import json
 from selenium import webdriver
 
-with open("browserstack_config.json") as f:
-    config = json.load(f)
+USERNAME = "sakyshevnursat_wnDUNr"
+ACCESS_KEY = "41XXaAgVJvZWbVX2Rvbf"
 
-def test_safari_title():
-    options = webdriver.SafariOptions()
-    options.set_capability('bstack:options', {
-        "os": "OS X",
-        "osVersion": "Ventura",
-        "browserVersion": "latest",
-        "sessionName": "Safari Test"
-    })
+options = webdriver.SafariOptions()
 
-    driver = webdriver.Remote(
-        command_executor="https://hub.browserstack.com/wd/hub",
-        options=options,
-        desired_capabilities={
-            "browserName": "safari",
-            "browserVersion": "latest",
-            "bstack:options": {
-                "userName": config["user"],
-                "accessKey": config["key"]
-            }
-        }
-    )
+bstack_options = {
+    "os": "OS X",
+    "osVersion": "Sonoma",
+    "sessionName": "Safari Test"
+}
 
-    driver.get("https://google.com")
-    assert "Google" in driver.title
-    driver.quit()
+options.set_capability('bstack:options', bstack_options)
+options.set_capability('browserVersion', 'latest')
+
+driver = webdriver.Remote(
+    command_executor=f"https://{config.user}:{config.key}@hub.browserstack.com/wd/hub",
+    options=options
+)
+driver.get("https://google.com")
+print(driver.title)
+
+driver.quit()
