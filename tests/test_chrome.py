@@ -5,6 +5,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 with open("browserstack_config.json") as f:
     config = json.load(f)
 
+USERNAME = "sakyshevnursat_wnDUNr"
+ACCESS_KEY = "41XXaAgVJvZWbVX2Rvbf"
+
 capabilities = {
     "browserName": "chrome",
     "browserVersion": "latest",
@@ -16,7 +19,7 @@ capabilities = {
 }
 
 driver = webdriver.Remote(
-    command_executor=f"https://{config.user}:{config.key}@hub.browserstack.com/wd/hub",
+    command_executor=f"https://{USERNAME}:{ACCESS_KEY}@hub.browserstack.com/wd/hub",
     options=webdriver.ChromeOptions()
 )
 

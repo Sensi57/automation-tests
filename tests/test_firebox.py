@@ -5,6 +5,9 @@ with open("browserstack_config.json") as f:
     config = json.load(f)
 
 
+USERNAME = "sakyshevnursat_wnDUNr"
+ACCESS_KEY = "41XXaAgVJvZWbVX2Rvbf"
+
 options = webdriver.FirefoxOptions()
 
 bstack_options = {
@@ -17,7 +20,7 @@ options.set_capability('bstack:options', bstack_options)
 options.set_capability('browserVersion', 'latest')
 
 driver = webdriver.Remote(
-    command_executor=f"https://{config.user}:{config.key}@hub.browserstack.com/wd/hub",
+    command_executor=f"https://{USERNAME}:{config.key}@hub.browserstack.com/wd/hub",
     options=webdriver.ChromeOptions()
 )
 

@@ -15,7 +15,7 @@ options.set_capability('bstack:options', bstack_options)
 options.set_capability('browserVersion', 'latest')
 
 driver = webdriver.Remote(
-    command_executor=f"https://{config.user}:{config.key}@hub.browserstack.com/wd/hub",
+    command_executor=f"https://{USERNAME}:{ACCESS_KEY}@hub.browserstack.com/wd/hub",
     options=options
 )
 driver.get("https://google.com")
