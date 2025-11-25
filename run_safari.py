@@ -1,6 +1,6 @@
 from selenium import webdriver
-from test1 import run_test as run_test1
-from test2 import run_test as run_test2
+from tests.test1 import run_test as run_test1
+from tests.test2 import run_test as run_test2
 
 options = webdriver.SafariOptions()
 options.set_capability('browserVersion', 'latest')
